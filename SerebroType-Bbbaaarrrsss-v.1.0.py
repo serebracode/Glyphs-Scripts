@@ -80,7 +80,7 @@ class BarsUI(object):
     def __init__(self):
         f = Glyphs.font
         if not f or not f.selectedLayers:
-            Message("Select a glyph", "Выдели слой глифа и запусти снова.")
+            Message("Select a glyph", "Select a glyph layer and run the script again.")
             return
 
         self.w = vanilla.FloatingWindow((WINDOW_WIDTH, WINDOW_HEIGHT), "Bbbaaarrrsss")
@@ -139,7 +139,7 @@ class BarsUI(object):
         for layer in layers:
             nsbp = bezierPathFromLayerSafe(layer)
             if nsbp is None:
-                Message("Error", "В слое нет контуров.")
+                Message("Error", "No contours in the layer.")
                 return
 
             bounds = nsbp.bounds()
@@ -153,11 +153,11 @@ class BarsUI(object):
             neededGaps = (n - 1) * gap
             remainForBars = totalH - neededGaps
             if remainForBars <= 0:
-                Message("Error", "Gap слишком большой для этой высоты и количества полос.")
+                Message("Error", "Gap is too large for this height and number of bars.")
                 return
             barH = remainForBars / n
 
-            # Имя слоя
+            # Layer name
             if fitContour:
                 layerName = f"Bars={n}, Gap={gap:g}"
             else:
@@ -176,7 +176,7 @@ class BarsUI(object):
                 baseLayer.removeOverlap()
                 srcPaths = list(baseLayer.paths)
                 if not srcPaths:
-                    Message("Error", "В слое нет контуров (для булева).")
+                    Message("Error", "No contours in the layer (for boolean operations).")
                     return
 
             y0 = yMin
